@@ -1,19 +1,19 @@
-import Organization from '#models/organization'
+import Organization from '#models/organization';
 
 type Params = {
-  organization: Organization
-}
+    organization: Organization;
+};
 
 export default class GetCourses {
-  static async handle({ organization }: Params) {
-    return organization
-      .related('courses')
-      .query()
-      .preload('status')
-      .preload('difficulty')
-      .preload('accessLevel')
-      .withCount('lessons')
-      .withCount('modules')
-      .orderBy('order')
-  }
+    static async handle({ organization }: Params) {
+        return organization
+            .related('courses')
+            .query()
+            .preload('status')
+            .preload('difficulty')
+            .preload('accessLevel')
+            .withCount('lessons')
+            .withCount('modules')
+            .orderBy('order');
+    }
 }

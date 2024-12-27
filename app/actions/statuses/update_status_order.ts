@@ -1,31 +1,31 @@
-import Status from '#models/status'
-import Organization from '#models/organization'
+import Status from '#models/status';
+import Organization from '#models/organization';
 
 type Params = {
-  organization: Organization
-  ids: number[]
-}
+    organization: Organization;
+    ids: number[];
+};
 
 export default class UpdateStatusOrder {
-  static async handle({ organization, ids }: Params) {
-    const statuses = await organization.getStatuses()
+    static async handle({ organization, ids }: Params) {
+        const statuses = await organization.getStatuses();
 
-    return this.#updateOrder(statuses, ids)
-  }
+        return this.#updateOrder(statuses, ids);
+    }
 
-  static async #updateOrder(statuses: Status[], ids: number[]) {
-    const promises = ids.map((id, order) => {
-      const status = statuses.find((record) => record.id === id)
-      const isDefault = order === 0
+    static async #updateOrder(statuses: Status[], ids: number[]) {
+        const promises = ids.map((id, order) => {
+            const status = statuses.find((record) => record.id === id);
+            const isDefault = order === 0;
 
-      status?.merge({
-        order,
-        isDefault,
-      })
+            status?.merge({
+                order,
+                isDefault,
+            });
 
-      return status?.save()
-    })
+            return status?.save();
+        });
 
-    return Promise.all(promises)
-  }
+        return Promise.all(promises);
+    }
 }
