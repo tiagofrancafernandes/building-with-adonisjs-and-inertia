@@ -1,11 +1,11 @@
-import { inject } from '@adonisjs/core'
-import { HttpContext } from '@adonisjs/core/http'
+import { inject } from '@adonisjs/core';
+import { HttpContext } from '@adonisjs/core/http';
 
 @inject()
 export default class WebLogout {
-  constructor(protected ctx: HttpContext) {}
+    constructor(protected ctx: HttpContext) {}
 
-  async handle() {
-    await this.ctx.auth.use('web').logout()
-  }
+    async handle() {
+        await this.ctx.auth.use('web').logout();
+    }
 }
